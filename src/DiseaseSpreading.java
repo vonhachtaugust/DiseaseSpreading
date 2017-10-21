@@ -1,22 +1,18 @@
-package task1;
+package DiseaseSpreading;
 
 import javax.swing.*;
-
-import task1.Actor.State;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
 
-/**
- * A
- */
-public class RandomWalk extends JPanel implements ActionListener {
+import DiseaseSpreading.Actor.State;
+
+public class DiseaseSpreading extends JPanel implements ActionListener {
 
 	public static void main(String[] args) {
-		new RandomWalk().program();
+    new DiseaseSpreading().program();
 	}
 
 	final int width = 400; // Size of paint area
@@ -35,12 +31,7 @@ public class RandomWalk extends JPanel implements ActionListener {
 	final double gamma = 0.01;
 	boolean stopp = false;
 
-	/*
-	 * List<Integer> A = new ArrayList<>(); List<Integer> B = new ArrayList<>();
-	 */
-
 	final Board board = new Board(100, 100, beta, gamma, N); // Call
-	// constructor.
 	final JButton stoppButton = new JButton("Stopp");
 
 	void program() {
@@ -53,14 +44,9 @@ public class RandomWalk extends JPanel implements ActionListener {
 		super.paint(g);
 		Graphics2D g2 = (Graphics2D) g;
 
-		List<Actor> ls = board.getActors();
+		List<Actor> actors = board.getActors();
 
-		for (Actor a : ls) {
-
-			/*
-			 * A.add(a.getRow()); B.add(a.getCol());
-			 */
-
+		for (Actor a : actors) {
 			if (a.getState() == State.HEALTHY) {
 				g.setColor(Color.BLUE);
 			} else if (a.getState() == State.SICK) {
@@ -76,29 +62,17 @@ public class RandomWalk extends JPanel implements ActionListener {
 
 		if (!board.isFinished() /* && step <= 100  && !stopp */) {
 			try {
-
 				nrOfSick.add((double) board.numberOfSick() / N);
 				nrOfHealthy.add((double) board.numberOfHealthy() / N);
 				nrOfCured.add((double) board.numberOfCured() / N);
 
 				Thread.sleep(1);
 				repaint();
-
-				//System.out.println(step);
-				//step++;
-
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		} else {
-			/*
-			 * for (int i = 0; i < (A.size() - 1); i++) { if (i == 0) {
-			 * g.setColor(Color.RED); drawCircle(g2,A.get(i), B.get(i), 7); }
-			 * else if (i == A.size() - 2 ) { g.setColor(Color.GREEN);
-			 * drawCircle(g2,A.get(i), B.get(i), 7); } else {
-			 * g.setColor(Color.BLUE); drawCircle(g2,A.get(i), B.get(i), 3); } }
-			 */
-			new XYLineChartExample();
+			//new XYLineChartExample();
 		}
 
 	}
@@ -112,11 +86,8 @@ public class RandomWalk extends JPanel implements ActionListener {
 	void initGraphics() {
 
 		setPreferredSize(new Dimension(width, height));
-		JFrame window = new JFrame(
-				"Title"/*
-						 * "d = " + board.threshold + " " + "beta = " + beta +
-						 * " " + "gamma = " + gamma
-						 */);
+		JFrame window = new JFrame("d = " + board.threshold + " " + "beta = " + beta +
+						" " + "gamma = " + gamma);
 		window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		window.add(this);
 		window.pack();
@@ -145,7 +116,6 @@ public class RandomWalk extends JPanel implements ActionListener {
 		for (int y = 1 ; y <  numberOfPoints2; y++) {
 			bet = (y*0.7);
 		for (int x = 1; x < numberOfPoints; x++) {
-			
 			/*if ( x <= 31) {
 				steplength = 1;
 				gam = bet  / ( 1 + x * steplength);
@@ -153,7 +123,6 @@ public class RandomWalk extends JPanel implements ActionListener {
 				steplength = 5;
 				gam = bet / (31 + (x-31)*steplength);
 			}*/
-			
 			steplength = 5;
 			gam = bet / (33 + (x-1)*steplength);
 			R0 = bet / gam;

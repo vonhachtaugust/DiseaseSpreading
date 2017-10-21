@@ -1,12 +1,7 @@
-package task1;
+package DiseaseSpreading;
 
 import java.util.*;
-
-import task1.Actor.State;
-
-/**
- *
- */
+import DiseaseSpreading.Actor.State;
 
 public class Board {
 
@@ -54,28 +49,14 @@ public class Board {
 		for (Set<Actor> as : sets) {
 			List<Actor> healthy = getHealthy(as);
 			List<Actor> sick = getSick(as);
-			// if (!sick.isEmpty() && !healthy.isEmpty()) {
 			for (Actor a : sick) {
 				if (a.doInfect()) {
 					setAll(healthy, Actor.State.SICK);
-					/*
-					 * if (a.doCure()) { a.setState(Actor.State.IMMUNE); }
-					 * 
-					 * 
-					 * } else if (a.doCure()) { a.setState(Actor.State.IMMUNE);
-					 * }
-					 */
 				}
 
 				if (a.doCure()) {
 					a.setState(Actor.State.IMMUNE);
 				}
-
-				// }
-				/*
-				 * for (Actor a : sick) { if (a.doCure()) {
-				 * a.setState(Actor.State.IMMUNE); } }
-				 */
 			}
 		}
 	}
@@ -201,5 +182,4 @@ public class Board {
 		}
 		return sum;
 	}
-
 }

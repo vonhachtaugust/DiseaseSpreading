@@ -1,10 +1,7 @@
-package task1;
+package DiseaseSpreading;
 
 import java.util.Random;
 
-/**
- *
- */
 public class Actor {
 
     public enum State {
@@ -67,5 +64,3 @@ public class Actor {
                 '}';
     }
 }
-
-
